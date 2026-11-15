@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLIProxyAPI — Command-Line AI Proxy Server</title>
+    <meta name="description" content="CLIProxyAPI is a command-line proxy server providing OpenAI, Gemini, Claude, Codex, and Grok compatible APIs via CLI OAuth and round-robin load balancing.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='3' fill='%23111111'/%3E%3Crect x='2' y='2' width='20' height='3' fill='%2361BB46'/%3E%3Crect x='2' y='5' width='20' height='3' fill='%23FDB827'/%3E%3Crect x='2' y='8' width='20' height='3' fill='%23F5821F'/%3E%3Crect x='2' y='11' width='20' height='3' fill='%23E03A3E'/%3E%3Crect x='2' y='14' width='20' height='3' fill='%23963D97'/%3E%3Crect x='2' y='17' width='20' height='3' fill='%23009DDC'/%3E%3Cpath d='M5 8l4 4-4 4M11 16h7' stroke='%23FFFFFF' stroke-width='2.2' fill='none' stroke-linecap='square'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/apple80s.css">
+</head>
+<body>
+    <!-- Section 1: Classic Macintosh System 6 Menu Bar -->
+    <header class="menubar" role="banner">
+        <div class="menubar-left">
+            <a href="#overview" class="brand-item" aria-label="CLIProxyAPI Home">
+                <svg class="brand-logo-svg" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="1" y="1" width="22" height="22" fill="#111111"/>
+                    <rect x="2" y="2" width="20" height="3.3" fill="#61BB46"/>
+                    <rect x="2" y="5.3" width="20" height="3.3" fill="#FDB827"/>
+                    <rect x="2" y="8.6" width="20" height="3.3" fill="#F5821F"/>
+                    <rect x="2" y="11.9" width="20" height="3.3" fill="#E03A3E"/>
+                    <rect x="2" y="15.2" width="20" height="3.3" fill="#963D97"/>
+                    <rect x="2" y="18.5" width="20" height="3.5" fill="#009DDC"/>
+                    <rect x="5" y="6" width="14" height="12" fill="#111111"/>
+                    <path d="M7.5 9.2L10.5 12L7.5 14.8M12 14.8H16.5" stroke="#33FF66" stroke-width="1.8" fill="none" stroke-linecap="square"/>
+                </svg>
+                <span>CLIProxyAPI</span>
+            </a>
+            <nav class="menubar-nav" aria-label="Primary Sections">
+                <a href="#overview" class="menubar-link" data-i18n="nav.overview">Overview</a>
+                <a href="#terminal" class="menubar-link" data-i18n="nav.terminal">Terminal</a>
+                <a href="#topology" class="menubar-link" data-i18n="nav.topology">Architecture</a>
+                <a href="#capabilities" class="menubar-link" data-i18n="nav.capabilities">Capabilities</a>
+                <a href="#quickstart" class="menubar-link" data-i18n="nav.quickstart">Quick Start</a>
+            </nav>
+        </div>
+
+        <div class="menubar-right">
+            <button type="button" class="menu-pill-btn is-active" data-crt-theme="green" data-i18n="crt.green" aria-pressed="true">CRT: P1 Green</button>
+            <button type="button" class="menu-pill-btn" data-crt-theme="amber" data-i18n="crt.amber" aria-pressed="false">CRT: P3 Amber</button>
+            <button type="button" class="menu-pill-btn" data-crt-theme="mono" data-i18n="crt.mono" aria-pressed="false">CRT: 1-Bit</button>
+            <button type="button" class="menu-pill-btn is-active" data-lang-toggle="en" aria-pressed="true">EN</button>
+            <button type="button" class="menu-pill-btn" data-lang-toggle="zh" aria-pressed="false">中文</button>
+            <span class="menubar-clock" data-menu-clock aria-label="System Clock">9:41 AM</span>
+        </div>
+    </header>
+
+    <!-- Six-Color 1980s Apple Rainbow Stripe -->
+    <div class="rainbow-bar" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <main class="page-shell">
+        <!-- Section 2: 1984 Editorial Hero & Embedded Snow White Platinum CLI Terminal -->
+        <section id="overview" class="hero-section">
+            <div class="edition-badge">
+                <span aria-hidden="true">&gt;_</span>
+                <span data-i18n="hero.badge">CLI PROXY SERVER · GO 1.26+ · MIT OPEN SOURCE</span>
+            </div>
+
+            <h1 class="hero-title" data-i18n="hero.title">Introducing CLIProxyAPI.</h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">One command line. Every frontier model.</p>
+            <p class="hero-lead" data-i18n="hero.lead">
+                A compiled Go command-line proxy server that turns your CLI OAuth subscriptions and API keys into unified OpenAI, Gemini, Claude, Codex, and Grok compatible local endpoints—with round-robin load balancing and a built-in terminal UI.
+            </p>
+
+            <div class="hero-cta-row">
+                <a href="#quickstart" class="retro-btn is-primary">
+                    <span aria-hidden="true">$</span>
+                    <span data-i18n="hero.ctaQuickstart">Start in Terminal</span>
+                </a>
+                <a href="https://help.router-for.me/" target="_blank" rel="noopener noreferrer" class="retro-btn" data-i18n="hero.ctaDocs">Read the Manual</a>
+                <a href="https://github.com/router-for-me/CLIProxyAPI" target="_blank" rel="noopener noreferrer" class="retro-btn" data-i18n="hero.ctaGithub">GitHub Repository</a>
+            </div>
+
+            <!-- Interactive CLI Terminal Centerpiece -->
+            <div id="terminal" class="crt-housing" aria-label="Interactive CLIProxyAPI Terminal">
+                <div class="crt-toolbar">
+                    <div class="preset-group" role="group" aria-label="CLI Scenario Presets">
+                        <button type="button" class="preset-btn is-active" data-preset="oauth" data-i18n="term.preset.oauth" aria-pressed="true">01 · OAuth Login</button>
+                        <button type="button" class="preset-btn" data-preset="routing" data-i18n="term.preset.routing" aria-pressed="false">02 · Proxy &amp; Routing</button>
+                        <button type="button" class="preset-btn" data-preset="tui" data-i18n="term.preset.tui" aria-pressed="false">03 · Terminal UI (--tui)</button>
+                        <button type="button" class="preset-btn" data-preset="discover" data-i18n="term.preset.discover" aria-pressed="false">04 · LAN Discover</button>
+                    </div>
+                    <button type="button" class="copy-cmd-btn" data-term-copy data-i18n="term.copy">Copy Command</button>
+                </div>
+
+                <div class="crt-bezel-recess">
+                    <div class="sys6-window">
+                        <div class="sys6-titlebar">
+                            <span class="sys6-close-box" aria-hidden="true"></span>
+                            <span class="sys6-title-label" data-i18n="term.windowTitle">cli-proxy-api — ttys000 — 80x24</span>
+                        </div>
+                        <div class="crt-screen theme-green" data-term-screen>
+                            <div class="term-output" data-term-output role="log" aria-live="polite"></div>
+                            <div class="term-input-row">
+                                <span class="term-prompt" aria-hidden="true">guest@macintosh ~ %</span>
+                                <label for="cpa-cli-input" class="sr-only" data-i18n="term.inputLabel">Enter a CLIProxyAPI demo command</label>
+                                <input
+                                    id="cpa-cli-input"
+                                    type="text"
+                                    class="term-input"
+                                    data-term-input
+                                    data-i18n-placeholder="term.placeholder"
+                                    placeholder="Type 'help', 'providers', 'discover --json', or '--claude-login' and press Return..."
+                                    autocomplete="off"
+                                    spellcheck="false"
+                                >
+                                <span class="term-cursor" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crt-chin">
+                    <div class="crt-chin-brand">
+                        <span class="mini-rainbow-tag" aria-hidden="true">
+                            <i></i><i></i><i></i><i></i><i></i><i></i>
+                        </span>
+                        <span data-i18n="term.chinBrand">Macintosh CLI Edition · Port 8317</span>
+                    </div>
+
+                    <div class="term-quick-chips">
+                        <span style="font-family: var(--font-sys); font-size: 0.72rem; font-weight: 700;" data-i18n="term.tryLabel">Try:</span>
+                        <button type="button" class="chip-btn" data-quick-cmd="help">help</button>
+                        <button type="button" class="chip-btn" data-quick-cmd="cli-proxy-api -h">cli-proxy-api -h</button>
+                        <button type="button" class="chip-btn" data-quick-cmd="providers">providers</button>
+                        <button type="button" class="chip-btn" data-quick-cmd="cli-proxy-api discover --json">discover --json</button>
+                        <button type="button" class="chip-btn" data-quick-cmd="./cli-proxy-api --xai-login">--xai-login</button>
+                    </div>
+
+                    <div class="power-led-wrap">
+                        <span class="power-led" aria-hidden="true"></span>
+                        <span data-i18n="term.powerReady">ONLINE</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: ASCII Protocol Translation & Routing Topology -->
+        <section id="topology" class="content-section">
+            <div class="section-header">
+                <span class="section-kicker" data-i18n="topo.kicker">SYSTEM ARCHITECTURE</span>
+                <h2 class="section-title" data-i18n="topo.title">Built like a UNIX tool. Speaks every modern AI protocol.</h2>
+                <p class="section-desc" data-i18n="topo.desc">
+                    Point Claude Code, Codex CLI, OpenAI SDKs, or Gemini clients at localhost:8317. CLIProxyAPI normalizes reasoning budgets, translates wire protocols, and rotates accounts automatically.
+                </p>
+            </div>
+
+            <div class="sys6-window">
+                <div class="sys6-titlebar">
+                    <span class="sys6-close-box" aria-hidden="true"></span>
+                    <span class="sys6-title-label" data-i18n="topo.windowTitle">Routing_Topology.txt — Read-Only</span>
+                </div>
+                <div class="topology-body">
+                    <pre class="topology-pre" aria-label="CLIProxyAPI ASCII Routing Diagram">+----------------------+      +---------------------------------------------------+      +---------------------------+
+|   CLIENTS &amp; TOOLS    |      |             cli-proxy-api (:8317)                 |      |    UPSTREAM PROVIDERS     |
++----------------------+      +---------------------------------------------------+      +---------------------------+
+| * Claude Code CLI    | ===&gt; |  POST /v1/messages          [Anthropic Protocol]  | ===&gt; | -&gt; OpenAI / Codex OAuth   |
+| * OpenAI Codex CLI   | ===&gt; |  POST /v1/responses         [Responses + WS]      | ===&gt; | -&gt; Anthropic Claude OAuth |
+| * OpenAI / cURL SDKs | ===&gt; |  POST /v1/chat/completions  [Chat Completions]    | ===&gt; | -&gt; Gemini / Antigravity   |
+| * Gemini SDKs        | ===&gt; |  POST /v1beta/interactions  [Gemini Interactions] | ===&gt; | -&gt; Kimi / xAI / Meta      |
++----------------------+      +---------------------------------------------------+      | -&gt; Devin / OpenRouter     |
+                                       |                 |                 |             +---------------------------+
+                              [auths/ OAuth Pool] [Round-Robin LB] [Thinking Pipeline]</pre>
+                    <p class="topology-caption" data-i18n="topo.caption">
+                        Canonical Thinking Pipeline -&gt; Protocol Translator -&gt; Per-Provider Runtime Executor (Streaming SSE, Non-Streaming &amp; WebSockets).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Six CLI Capabilities & Supported Provider Matrix -->
+        <section id="capabilities" class="content-section">
+            <div class="section-header">
+                <span class="section-kicker" data-i18n="cap.kicker">BUILT FOR THE COMMAND LINE</span>
+                <h2 class="section-title" data-i18n="cap.title">Six reasons developers live in CLIProxyAPI.</h2>
+                <p class="section-desc" data-i18n="cap.desc">
+                    No bloated GUI wrappers required—just a single compiled Go binary designed for shells, SSH sessions, containers, and local workstations.
+                </p>
+            </div>
+
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <div class="feature-icon-box" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <rect x="2" y="9" width="9" height="8" stroke="#111111" stroke-width="2"/>
+                            <path d="M4 9V6h5v3M11 13h7M15 13v3" stroke="#111111" stroke-width="2" stroke-linecap="square"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="cap.c1.title">Zero-Key CLI OAuth</h3>
+                    <p data-i18n="cap.c1.desc">
+                        Authenticate Codex, Claude Code, Antigravity, Kimi, xAI, Meta, and Devin directly from your terminal, including headless --no-browser and device-code flows.
+                    </p>
+                    <code class="feature-flag-code">cli-proxy-api --claude-login --no-browser</code>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon-box" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M2 6h12M11 3l3 3-3 3M18 14H6M9 11l-3 3 3 3" stroke="#111111" stroke-width="2" stroke-linecap="square"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="cap.c2.title">Universal Protocol Bridge</h3>
+                    <p data-i18n="cap.c2.desc">
+                        Expose OpenAI (Chat &amp; Responses), Anthropic Messages, and Gemini (including Interactions) endpoints with streaming SSE, WebSockets, tools, and vision.
+                    </p>
+                    <code class="feature-flag-code">/v1/chat/completions · /v1/responses · /v1/messages</code>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon-box" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <rect x="2" y="3" width="16" height="4" stroke="#111111" stroke-width="2"/>
+                            <rect x="2" y="9" width="16" height="4" stroke="#111111" stroke-width="2"/>
+                            <path d="M4 17h12" stroke="#111111" stroke-width="2" stroke-linecap="square"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="cap.c3.title">Multi-Account Round-Robin</h3>
+                    <p data-i18n="cap.c3.desc">
+                        Pool multiple CLI subscriptions and API keys per provider. Requests rotate across healthy credentials automatically to smooth out rate limits.
+                    </p>
+                    <code class="feature-flag-code">auths/codex-01.json + auths/codex-02.json</code>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon-box" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <rect x="2" y="3" width="16" height="14" stroke="#111111" stroke-width="2"/>
+                            <path d="M2 7h16M5 11l2 2-2 2M9 15h4" stroke="#111111" stroke-width="1.8" stroke-linecap="square"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="cap.c4.title">Bubbletea Terminal UI</h3>
+                    <p data-i18n="cap.c4.desc">
+                        Launch an interactive full-screen terminal dashboard with --tui --standalone to inspect accounts, manage API keys, trigger OAuth, and tail live logs.
+                    </p>
+                    <code class="feature-flag-code">cli-proxy-api --tui --standalone</code>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon-box" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <rect x="8" y="8" width="4" height="4" fill="#111111"/>
+                            <rect x="4" y="4" width="12" height="12" stroke="#111111" stroke-width="2"/>
+                            <path d="M10 1v3M10 16v3M1 10h3M16 10h3" stroke="#111111" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="cap.c5.title">LAN Gateway Discovery</h3>
+                    <p data-i18n="cap.c5.desc">
+                        Run cli-proxy-api discover to scan _ai-gateway._tcp via DNS-SD on your local network, with clean --json output ready for shell pipelines.
+                    </p>
+                    <code class="feature-flag-code">cli-proxy-api discover --timeout 3 --json</code>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon-box" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <rect x="3" y="3" width="6" height="6" stroke="#111111" stroke-width="2"/>
+                            <rect x="11" y="3" width="6" height="6" stroke="#111111" stroke-width="2"/>
+                            <rect x="7" y="11" width="6" height="6" stroke="#111111" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3 data-i18n="cap.c6.title">Embeddable Go SDK &amp; Stores</h3>
+                    <p data-i18n="cap.c6.desc">
+                        Embed sdk/cliproxy directly into Go services, hot-reload YAML config, and persist credentials on disk, PostgreSQL, Git, or Object Storage.
+                    </p>
+                    <code class="feature-flag-code">import "github.com/router-for-me/CLIProxyAPI/v8/sdk/cliproxy"</code>
+                </article>
+            </div>
+
+            <div style="margin-top: 32px;">
+                <span class="section-kicker" data-i18n="prov.kicker">SUPPORTED UPSTREAM CHANNELS &amp; CLI FLAGS</span>
+                <div class="provider-strip">
+                    <div class="provider-plaque">
+                        <div>
+                            <div class="provider-name">OpenAI / Codex</div>
+                            <div class="provider-models" data-i18n="prov.openai.models">GPT-6 Astra / Sol / Terra / Luna &amp; Codex OAuth</div>
+                        </div>
+                        <span class="provider-flag">--codex-login</span>
+                    </div>
+                    <div class="provider-plaque">
+                        <div>
+                            <div class="provider-name">Anthropic</div>
+                            <div class="provider-models" data-i18n="prov.claude.models">Claude Fable 5.1, Opus 5.5, Sonnet 5.5, Haiku 5.5</div>
+                        </div>
+                        <span class="provider-flag">--claude-login</span>
+                    </div>
+                    <div class="provider-plaque">
+                        <div>
+                            <div class="provider-name">Gemini / Antig.</div>
+                            <div class="provider-models" data-i18n="prov.gemini.models">Gemini 4 Argon, 3.8 Flash, AI Studio, Vertex &amp; Antigravity</div>
+                        </div>
+                        <span class="provider-flag">--antigravity-login</span>
+                    </div>
+                    <div class="provider-plaque">
+                        <div>
+                            <div class="provider-name">Kimi</div>
+                            <div class="provider-models" data-i18n="prov.kimi.models">Kimi K3.1 Pro, K3 (1M context) via OAuth or API Key</div>
+                        </div>
+                        <span class="provider-flag">--kimi-login</span>
+                    </div>
+                    <div class="provider-plaque">
+                        <div>
+                            <div class="provider-name">xAI Grok</div>
+                            <div class="provider-models" data-i18n="prov.xai.models">Grok 4.7 &amp; Grok Build via CLI OAuth or API Key</div>
+                        </div>
+                        <span class="provider-flag">--xai-login</span>
+                    </div>
+                    <div class="provider-plaque">
+                        <div>
+                            <div class="provider-name">Meta Muse</div>
+                            <div class="provider-models" data-i18n="prov.meta.models">Muse Wonder Full, Muse Wonder &amp; Muse Spark 1.3</div>
+                        </div>
+                        <span class="provider-flag">--meta-login</span>
+                    </div>
+                    <div class="provider-plaque">
+                        <div>
+                            <div class="provider-name">Devin</div>
+                            <div class="provider-models" data-i18n="prov.devin.models">SWE-2, SWE-2 Flash &amp; routed account models</div>
+                        </div>
+                        <span class="provider-flag">--devin-login</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Three-Step CLI Quick Start -->
+        <section id="quickstart" class="content-section">
+            <div class="section-header">
+                <span class="section-kicker" data-i18n="qs.kicker">THREE-STEP TERMINAL SETUP</span>
+                <h2 class="section-title" data-i18n="qs.title">Up and routing in sixty seconds.</h2>
+                <p class="section-desc" data-i18n="qs.desc">
+                    Build from Go 1.26+ source or download a prebuilt binary, log in from your shell, and start serving requests locally.
+                </p>
+            </div>
+
+            <div class="quickstart-list">
+                <div class="quickstart-step">
+                    <div class="step-head">
+                        <span data-i18n="qs.s1.step">STEP 01 · BUILD &amp; CONFIG</span>
+                        <span>[01/03]</span>
+                    </div>
+                    <div class="step-body">
+                        <h3 class="step-title" data-i18n="qs.s1.title">Compile the CLI binary</h3>
+                        <p class="step-desc" data-i18n="qs.s1.desc">
+                            Build the single Go binary and initialize config.yaml from the included template.
+                        </p>
+                        <div class="step-code-wrap">
+                            <code>go build -o cli-proxy-api ./cmd/server &amp;&amp; cp config.example.yaml config.yaml</code>
+                            <button type="button" class="mini-copy-btn" data-copy-snippet="go build -o cli-proxy-api ./cmd/server && cp config.example.yaml config.yaml" data-i18n="qs.copy">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quickstart-step">
+                    <div class="step-head">
+                        <span data-i18n="qs.s2.step">STEP 02 · AUTHENTICATE</span>
+                        <span>[02/03]</span>
+                    </div>
+                    <div class="step-body">
+                        <h3 class="step-title" data-i18n="qs.s2.title">Log in via CLI OAuth</h3>
+                        <p class="step-desc" data-i18n="qs.s2.desc">
+                            Sign in with one flag—credentials are stored cleanly under auths/ for round-robin routing.
+                        </p>
+                        <div class="step-code-wrap">
+                            <code>./cli-proxy-api --claude-login</code>
+                            <button type="button" class="mini-copy-btn" data-copy-snippet="./cli-proxy-api --claude-login" data-i18n="qs.copy">Copy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quickstart-step">
+                    <div class="step-head">
+                        <span data-i18n="qs.s3.step">STEP 03 · SERVE OR TUI</span>
+                        <span>[03/03]</span>
+                    </div>
+                    <div class="step-body">
+                        <h3 class="step-title" data-i18n="qs.s3.title">Launch server or Terminal UI</h3>
+                        <p class="step-desc" data-i18n="qs.s3.desc">
+                            Run headless in the background or open the built-in Bubbletea TUI console.
+                        </p>
+                        <div class="step-code-wrap">
+                            <code>./cli-proxy-api --tui --standalone</code>
+                            <button type="button" class="mini-copy-btn" data-copy-snippet="./cli-proxy-api --tui --standalone" data-i18n="qs.copy">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Classic 1984 Publication Colophon Footer -->
+    <footer class="retro-footer">
+        <div class="rainbow-bar" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="footer-inner">
+            <p class="footer-colophon" data-i18n="footer.colophon">
+                CLIProxyAPI — Crafted for the command line in the spirit of 1984 personal computing. Open-source under the MIT License.
+            </p>
+            <div class="footer-links">
+                <a href="https://github.com/router-for-me/CLIProxyAPI" target="_blank" rel="noopener noreferrer" data-i18n="footer.linkGithub">GitHub</a>
+                <a href="https://help.router-for.me/" target="_blank" rel="noopener noreferrer" data-i18n="footer.linkDocs">Documentation</a>
+                <a href="https://help.router-for.me/management/api" target="_blank" rel="noopener noreferrer" data-i18n="footer.linkMgmt">Management API</a>
+                <a href="https://github.com/router-for-me/EasyCLIProxyAPI" target="_blank" rel="noopener noreferrer" data-i18n="footer.linkDesktop">EasyCLIProxyAPI Desktop</a>
+            </div>
+        </div>
+    </footer>
+
+    <script defer src="js/i18n.js"></script>
+    <script defer src="js/terminal.js"></script>
+    <script defer src="js/main.js"></script>
+</body>
+</html>
